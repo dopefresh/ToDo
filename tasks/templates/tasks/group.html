@@ -1,0 +1,29 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'tasks/group_style.css'%}">
+<form method = "POST"> 
+    {% csrf_token %}
+    {{ form }}
+    <input type = "submit" value = "Create Task">
+</form>
+<ol>
+    {% for task in tasks %}
+        {% if task.completed == False %}
+            <p>  <li> {{ task }} </li> </p>
+            <div class ="buttons"> 
+                <a href="{% url 'tasks:update_task' task.id %}"> <img src="{% static 'tasks/edit.png'%}"> </a>
+                <a href="{% url 'tasks:delete_task' task.id %}"> <img src="{% static 'tasks/delete.png' %}"> </a>
+            </div>
+        {% endif %}
+    {% endfor %}
+
+    {% for task in tasks %}
+        {% if task.completed == True %}
+            <p> <li> <strike> {{ task }} </strike> </li> </p>
+            <div class="buttons">
+                <a href="{% url 'tasks:delete_task' task.id %}"> <img src="{% static 'tasks/delete.png' %}"> </a> 
+                <a href="{% url 'tasks:update_task' task.id %}"><img src="{% static 'tasks/edit.png'%}"></a>
+            </div> 
+        {% endif %}
+    {% endfor %}
+</ol>
+

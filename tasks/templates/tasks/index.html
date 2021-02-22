@@ -1,0 +1,23 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'tasks/index_style.css'%}">
+<form method = "POST">
+    {% csrf_token %}
+    {{ form }}
+    <input type = "submit" value = "Create Group">
+</form>
+
+<ol>
+    {% for group in groups %}
+        <p>
+            <a href="{% url 'tasks:group' group.id %}"> <li> {{ group }} </li> </a> 
+            <a href="{% url 'tasks:update_group' group.id %}"><img src="{% static 'tasks/edit.png' %}"></a>
+            <a href="{% url 'tasks:delete_group' group.id %}"><img src="{% static 'tasks/delete.png' %}"></a> 
+        </p>
+    {% endfor %}
+</ol>
+
+
+
+
+
+
